@@ -1,30 +1,53 @@
-import { motion, useInView, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { useRef, useEffect, useState, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
-import { ExternalLink, Github, Monitor, Server } from "lucide-react";
 import { api } from "@/services/api";
 import type { Project } from "@/types";
+import {
+  motion,
+  useInView,
+  useMotionValue,
+  useSpring,
+  useTransform,
+} from "framer-motion";
+import { ExternalLink, Monitor, Server } from "lucide-react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const TILT = 8; // max degrees
 
-const ProjectCard = ({ project, index, inView }: { project: Project; index: number; inView: boolean }) => {
+const ProjectCard = ({
+  project,
+  index,
+  inView,
+}: {
+  project: Project;
+  index: number;
+  inView: boolean;
+}) => {
   const navigate = useNavigate();
   const cardRef = useRef<HTMLDivElement>(null);
   const mouseX = useMotionValue(0.5);
   const mouseY = useMotionValue(0.5);
 
   const springConfig = { stiffness: 200, damping: 20 };
-  const rotateX = useSpring(useTransform(mouseY, [0, 1], [TILT, -TILT]), springConfig);
-  const rotateY = useSpring(useTransform(mouseX, [0, 1], [-TILT, TILT]), springConfig);
+  const rotateX = useSpring(
+    useTransform(mouseY, [0, 1], [TILT, -TILT]),
+    springConfig,
+  );
+  const rotateY = useSpring(
+    useTransform(mouseX, [0, 1], [-TILT, TILT]),
+    springConfig,
+  );
   const glowX = useSpring(useTransform(mouseX, [0, 1], [0, 100]), springConfig);
   const glowY = useSpring(useTransform(mouseY, [0, 1], [0, 100]), springConfig);
 
-  const handleMove = useCallback((e: React.MouseEvent) => {
-    const rect = cardRef.current?.getBoundingClientRect();
-    if (!rect) return;
-    mouseX.set((e.clientX - rect.left) / rect.width);
-    mouseY.set((e.clientY - rect.top) / rect.height);
-  }, [mouseX, mouseY]);
+  const handleMove = useCallback(
+    (e: React.MouseEvent) => {
+      const rect = cardRef.current?.getBoundingClientRect();
+      if (!rect) return;
+      mouseX.set((e.clientX - rect.left) / rect.width);
+      mouseY.set((e.clientY - rect.top) / rect.height);
+    },
+    [mouseX, mouseY],
+  );
 
   const handleLeave = useCallback(() => {
     mouseX.set(0.5);
@@ -52,17 +75,20 @@ const ProjectCard = ({ project, index, inView }: { project: Project; index: numb
           style={{
             background: useTransform(
               [glowX, glowY],
-              ([x, y]) => `radial-gradient(500px circle at ${x}% ${y}%, hsl(var(--primary) / 0.12), transparent 50%)`
+              ([x, y]) =>
+                `radial-gradient(500px circle at ${x}% ${y}%, hsl(var(--primary) / 0.12), transparent 50%)`,
             ),
           }}
         />
 
         {/* Gradient border glow */}
-        <div className="absolute inset-0 rounded-xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0"
+        <div
+          className="absolute inset-0 rounded-xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0"
           style={{
             padding: "1px",
             background: "var(--gradient-primary)",
-            WebkitMask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
+            WebkitMask:
+              "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
             WebkitMaskComposite: "xor",
             maskComposite: "exclude",
           }}
@@ -70,11 +96,16 @@ const ProjectCard = ({ project, index, inView }: { project: Project; index: numb
 
         <div className="relative z-10 p-8">
           <div className="flex flex-col lg:flex-row gap-8">
-            {/* Image placeholder */}
-            <div className="lg:w-2/5 aspect-video rounded-lg bg-muted/50 flex items-center justify-center overflow-hidden border border-border/50 group-hover:border-primary/20 transition-colors">
-              <div className="text-muted-foreground text-sm code-font">
-                {project.title} Preview
-              </div>
+            {/* Project Image */}
+            <div className="lg:w-2/5 aspect-video rounded-lg overflow-hidden border border-border/50 group-hover:border-primary/20 transition-colors">
+              <img
+                src={project.image}
+                alt={project.title}
+                className="w-full h-full object-cover"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).style.display = "none";
+                }}
+              />
             </div>
 
             {/* Content */}
@@ -88,7 +119,10 @@ const ProjectCard = ({ project, index, inView }: { project: Project; index: numb
                 </p>
                 <ul className="space-y-2 mb-6">
                   {project.features.slice(0, 3).map((feature) => (
-                    <li key={feature} className="flex items-center gap-2 text-sm text-muted-foreground">
+                    <li
+                      key={feature}
+                      className="flex items-center gap-2 text-sm text-muted-foreground"
+                    >
                       <span className="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0" />
                       {feature}
                     </li>
@@ -165,7 +199,9 @@ const Projects = () => {
           transition={{ duration: 0.7 }}
           className="text-center mb-16"
         >
-          <p className="text-sm font-medium text-primary code-font mb-3">// projects</p>
+          <p className="text-sm font-medium text-primary code-font mb-3">
+            // projects
+          </p>
           <h2 className="text-3xl sm:text-5xl font-bold">
             Featured <span className="gradient-text">Projects</span>
           </h2>
@@ -173,7 +209,12 @@ const Projects = () => {
 
         <div className="space-y-10">
           {projects.map((project, i) => (
-            <ProjectCard key={project.id} project={project} index={i} inView={inView} />
+            <ProjectCard
+              key={project.id}
+              project={project}
+              index={i}
+              inView={inView}
+            />
           ))}
         </div>
       </div>

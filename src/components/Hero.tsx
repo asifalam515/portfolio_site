@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowDown, ExternalLink, MessageCircle, FileText } from "lucide-react";
+import { ArrowDown, ExternalLink, FileText, MessageCircle } from "lucide-react";
 import InteractiveGrid from "./InteractiveGrid";
 
 const Hero = () => {
@@ -7,16 +7,26 @@ const Hero = () => {
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Ambient glow orbs */}
       <div className="hero-gradient-orb w-[600px] h-[600px] bg-primary top-1/4 -left-64 opacity-[0.08] animate-glow-pulse" />
-      <div className="hero-gradient-orb w-[500px] h-[500px] bg-secondary top-1/3 -right-48 opacity-[0.05] animate-glow-pulse" style={{ animationDelay: "2s" }} />
-      <div className="hero-gradient-orb w-[400px] h-[400px] bg-accent bottom-1/4 left-1/3 opacity-[0.04] animate-glow-pulse" style={{ animationDelay: "1s" }} />
+      <div
+        className="hero-gradient-orb w-[500px] h-[500px] bg-secondary top-1/3 -right-48 opacity-[0.05] animate-glow-pulse"
+        style={{ animationDelay: "2s" }}
+      />
+      <div
+        className="hero-gradient-orb w-[400px] h-[400px] bg-accent bottom-1/4 left-1/3 opacity-[0.04] animate-glow-pulse"
+        style={{ animationDelay: "1s" }}
+      />
 
       {/* Interactive grid */}
       <InteractiveGrid />
 
       {/* Radial fade */}
-      <div className="absolute inset-0" style={{
-        background: "radial-gradient(ellipse at center, transparent 0%, hsl(var(--background)) 70%)",
-      }} />
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(ellipse at center, transparent 0%, hsl(var(--background)) 70%)",
+        }}
+      />
 
       <div className="container-narrow relative z-10 text-center">
         {/* Badge */}
@@ -37,8 +47,7 @@ const Hero = () => {
           transition={{ duration: 1, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
           className="text-5xl sm:text-7xl lg:text-8xl font-black tracking-[-0.04em] mb-8 leading-[1.05]"
         >
-          Hi, I'm{" "}
-          <span className="gradient-text">Asif</span>
+          Hi, I'm <span className="gradient-text">Asif</span>
         </motion.h1>
 
         {/* Title */}
@@ -70,16 +79,22 @@ const Hero = () => {
           transition={{ duration: 1, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
           className="flex flex-col sm:flex-row items-center justify-center gap-4 flex-wrap"
         >
-          <a href="#projects" className="btn-primary-gradient flex items-center gap-2.5">
+          <a
+            href="#projects"
+            className="btn-primary-gradient flex items-center gap-2.5"
+          >
             <ExternalLink size={18} />
             View Projects
           </a>
-          <a href="#contact" className="btn-outline-glow flex items-center gap-2.5">
+          <a
+            href="#contact"
+            className="btn-outline-glow flex items-center gap-2.5"
+          >
             <MessageCircle size={18} />
             Contact Me
           </a>
           <a
-            href="/resume.pdf"
+            href="https://drive.google.com/file/d/1mesJCLX2pOP8daX7j06gJ3PKZ8qDZz74/view?usp=sharing"
             target="_blank"
             rel="noopener noreferrer"
             className="btn-outline-glow flex items-center gap-2.5"
