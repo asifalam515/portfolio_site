@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Moon, Sun } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import { Menu, Moon, Sun, X } from "lucide-react";
+import { useEffect, useState } from "react";
 
 const navLinks = [
   { label: "About", href: "#about" },
@@ -46,8 +46,11 @@ const Navbar = () => {
       }`}
     >
       <div className="container-narrow flex items-center justify-between h-16 sm:h-20">
-        <a href="#" className="text-lg font-bold gradient-text code-font tracking-tight">
-          &lt;Asif /&gt;
+        <a
+          href="#"
+          className="text-lg font-bold gradient-text code-font tracking-tight"
+        >
+          &lt;Asibul /&gt;
         </a>
 
         {/* Desktop */}
@@ -59,7 +62,9 @@ const Navbar = () => {
                 key={link.href}
                 href={link.href}
                 className={`relative px-4 py-2 text-[13px] font-medium transition-all duration-300 ${
-                  isActive ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+                  isActive
+                    ? "text-foreground"
+                    : "text-muted-foreground hover:text-foreground"
                 }`}
               >
                 {link.label}
@@ -75,7 +80,7 @@ const Navbar = () => {
           })}
           <div className="ml-3 w-px h-5 bg-border" />
           <a
-            href="/resume.pdf"
+            href="https://drive.google.com/file/d/1mesJCLX2pOP8daX7j06gJ3PKZ8qDZz74/view?usp=sharing"
             target="_blank"
             rel="noopener noreferrer"
             className="ml-3 px-5 py-2 text-xs font-medium rounded-lg btn-primary-gradient !py-2 !px-5"

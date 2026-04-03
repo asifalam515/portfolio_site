@@ -1,7 +1,7 @@
-import { motion, useInView } from "framer-motion";
-import { useRef, useState } from "react";
-import { Send, Mail, Github, Linkedin } from "lucide-react";
 import { api } from "@/services/api";
+import { motion, useInView } from "framer-motion";
+import { Github, Linkedin, Mail, Send } from "lucide-react";
+import { useRef, useState } from "react";
 import { toast } from "sonner";
 
 const Contact = () => {
@@ -32,7 +32,9 @@ const Contact = () => {
           transition={{ duration: 0.7 }}
           className="text-center mb-16"
         >
-          <p className="text-sm font-medium text-primary code-font mb-3">// contact</p>
+          <p className="text-sm font-medium text-primary code-font mb-3">
+            // contact
+          </p>
           <h2 className="text-3xl sm:text-5xl font-bold">
             Let's <span className="gradient-text">Connect</span>
           </h2>
@@ -100,22 +102,23 @@ const Contact = () => {
             <div>
               <h3 className="text-xl font-semibold mb-4">Get in touch</h3>
               <p className="text-muted-foreground leading-relaxed">
-                I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
+                I'm always open to discussing new projects, creative ideas, or
+                opportunities to be part of your vision.
               </p>
             </div>
 
             <div className="space-y-4">
               <a
-                href="mailto:asif@example.com"
+                href="mailto:Asibul@example.com"
                 className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors"
               >
                 <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
                   <Mail size={18} className="text-primary" />
                 </div>
-                <span className="text-sm">asif@example.com</span>
+                <span className="text-sm">Asibul@example.com</span>
               </a>
               <a
-                href="https://github.com/asif"
+                href="https://github.com/Asibul"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors"
@@ -123,10 +126,10 @@ const Contact = () => {
                 <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
                   <Github size={18} className="text-primary" />
                 </div>
-                <span className="text-sm">github.com/asif</span>
+                <span className="text-sm">github.com/Asibul</span>
               </a>
               <a
-                href="https://linkedin.com/in/asif"
+                href="https://linkedin.com/in/Asibul"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors"
@@ -134,7 +137,7 @@ const Contact = () => {
                 <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
                   <Linkedin size={18} className="text-primary" />
                 </div>
-                <span className="text-sm">linkedin.com/in/asif</span>
+                <span className="text-sm">linkedin.com/in/Asibul</span>
               </a>
             </div>
           </motion.div>

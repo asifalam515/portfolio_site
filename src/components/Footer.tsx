@@ -1,11 +1,11 @@
 import { motion, useInView } from "framer-motion";
+import { Coffee, Github, Heart, Linkedin, Mail } from "lucide-react";
 import { useRef } from "react";
-import { Github, Linkedin, Mail, Heart, Coffee } from "lucide-react";
 
 const links = [
-  { href: "https://github.com/asifalam515", icon: Github, label: "GitHub" },
-  { href: "https://linkedin.com/in/asif", icon: Linkedin, label: "LinkedIn" },
-  { href: "mailto:asif@example.com", icon: Mail, label: "Email" },
+  { href: "https://github.com/Asibulalam515", icon: Github, label: "GitHub" },
+  { href: "https://linkedin.com/in/Asibul", icon: Linkedin, label: "LinkedIn" },
+  { href: "mailto:Asibul@example.com", icon: Mail, label: "Email" },
 ];
 
 const Footer = () => {
@@ -15,7 +15,10 @@ const Footer = () => {
   return (
     <footer ref={ref} className="relative border-t border-border">
       {/* Gradient top edge */}
-      <div className="absolute top-0 left-0 right-0 h-px" style={{ background: "var(--gradient-primary)", opacity: 0.3 }} />
+      <div
+        className="absolute top-0 left-0 right-0 h-px"
+        style={{ background: "var(--gradient-primary)", opacity: 0.3 }}
+      />
 
       <div className="container-narrow py-16">
         <motion.div
@@ -26,7 +29,7 @@ const Footer = () => {
         >
           {/* Logo */}
           <a href="#" className="text-2xl font-bold gradient-text code-font">
-            &lt;Asif /&gt;
+            &lt;Asibul /&gt;
           </a>
 
           {/* Social links */}
@@ -60,7 +63,7 @@ const Footer = () => {
           {/* Copyright */}
           <div className="flex items-center gap-1.5 text-xs text-muted-foreground/60">
             <span>© {new Date().getFullYear()}</span>
-            <span className="gradient-text font-semibold">Asif</span>
+            <span className="gradient-text font-semibold">Asibul</span>
             <span>•</span>
             <span className="flex items-center gap-1">
               Made with <Heart size={10} className="text-primary" />

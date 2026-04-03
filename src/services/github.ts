@@ -1,4 +1,4 @@
-const GITHUB_USERNAME = "asifalam515";
+const GITHUB_USERNAME = "Asibulalam515";
 const API_BASE = "https://api.github.com";
 
 export interface GitHubProfile {
@@ -32,7 +32,7 @@ export async function fetchGitHubProfile(): Promise<GitHubProfile> {
 
 export async function fetchGitHubRepos(): Promise<GitHubRepo[]> {
   const res = await fetch(
-    `${API_BASE}/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=100`
+    `${API_BASE}/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=100`,
   );
   if (!res.ok) throw new Error("Failed to fetch GitHub repos");
   const repos: GitHubRepo[] = await res.json();
