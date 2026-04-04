@@ -3,9 +3,17 @@ import { Coffee, Github, Heart, Linkedin, Mail } from "lucide-react";
 import { useRef } from "react";
 
 const links = [
-  { href: "https://github.com/Asibulalam515", icon: Github, label: "GitHub" },
-  { href: "https://linkedin.com/in/Asibul", icon: Linkedin, label: "LinkedIn" },
-  { href: "mailto:Asibul@example.com", icon: Mail, label: "Email" },
+  { href: "https://github.com/asifalam515", icon: Github, label: "GitHub" },
+  {
+    href: "https://www.linkedin.com/in/asibul-alam-b90612197/",
+    icon: Linkedin,
+    label: "LinkedIn",
+  },
+  {
+    href: "mailto:asibulalam515@gmail.com",
+    icon: Mail,
+    label: "Email",
+  },
 ];
 
 const Footer = () => {

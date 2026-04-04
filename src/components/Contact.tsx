@@ -109,16 +109,16 @@ const Contact = () => {
 
             <div className="space-y-4">
               <a
-                href="mailto:Asibul@example.com"
+                href="mailto:asibulalam515@gmail.com"
                 className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors"
               >
                 <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
                   <Mail size={18} className="text-primary" />
                 </div>
-                <span className="text-sm">Asibul@example.com</span>
+                <span className="text-sm">asibulalam515@gmail.com</span>
               </a>
               <a
-                href="https://github.com/Asibul"
+                href="https://github.com/asifalam515"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors"
@@ -126,10 +126,10 @@ const Contact = () => {
                 <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
                   <Github size={18} className="text-primary" />
                 </div>
-                <span className="text-sm">github.com/Asibul</span>
+                <span className="text-sm">github.com/asifalam515</span>
               </a>
               <a
-                href="https://linkedin.com/in/Asibul"
+                href="https://www.linkedin.com/in/asibul-alam-b90612197/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors"
@@ -137,7 +137,9 @@ const Contact = () => {
                 <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
                   <Linkedin size={18} className="text-primary" />
                 </div>
-                <span className="text-sm">linkedin.com/in/Asibul</span>
+                <span className="text-sm">
+                  linkedin.com/in/asibul-alam-b90612197
+                </span>
               </a>
             </div>
           </motion.div>

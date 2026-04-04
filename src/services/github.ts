@@ -1,4 +1,4 @@
-const GITHUB_USERNAME = "Asibulalam515";
+const GITHUB_USERNAME = import.meta.env.VITE_GITHUB_USERNAME ?? "asifalam515";
 const API_BASE = "https://api.github.com";
 
 export interface GitHubProfile {

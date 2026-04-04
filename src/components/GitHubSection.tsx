@@ -1,12 +1,19 @@
-import { motion, useInView } from "framer-motion";
-import { useRef, useEffect, useState } from "react";
-import { Star, GitFork, ExternalLink, Activity, Users, BookOpen } from "lucide-react";
 import {
   fetchGitHubProfile,
   fetchGitHubRepos,
   type GitHubProfile,
   type GitHubRepo,
 } from "@/services/github";
+import { motion, useInView } from "framer-motion";
+import {
+  Activity,
+  BookOpen,
+  ExternalLink,
+  GitFork,
+  Star,
+  Users,
+} from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 
 const langColors: Record<string, string> = {
   TypeScript: "bg-blue-400",
@@ -30,10 +37,22 @@ const GitHubSection = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    Promise.all([fetchGitHubProfile(), fetchGitHubRepos()])
-      .then(([p, r]) => {
-        setProfile(p);
-        setRepos(r);
+    Promise.allSettled([fetchGitHubProfile(), fetchGitHubRepos()])
+      .then(([profileResult, reposResult]) => {
+        if (profileResult.status === "fulfilled") {
+          setProfile(profileResult.value);
+        }
+
+        if (reposResult.status === "fulfilled") {
+          setRepos(reposResult.value);
+        }
+
+        if (
+          profileResult.status === "rejected" &&
+          reposResult.status === "rejected"
+        ) {
+          throw new Error("Failed to load GitHub data.");
+        }
       })
       .catch((err) => {
         console.error("GitHub fetch error:", err);
@@ -47,7 +66,7 @@ const GitHubSection = () => {
     Array.from({ length: 7 }, (_, d) => {
       const seed = (w * 7 + d) * 2654435761;
       return (seed >>> 0) % 5;
-    })
+    }),
   );
   const intensityClasses = [
     "bg-muted/30",
@@ -67,7 +86,9 @@ const GitHubSection = () => {
           transition={{ duration: 0.7 }}
           className="text-center mb-20"
         >
-          <p className="text-sm font-medium text-primary code-font mb-3">// open source</p>
+          <p className="text-sm font-medium text-primary code-font mb-3">
+            // open source
+          </p>
           <h2 className="text-3xl sm:text-5xl font-bold mb-4">
             GitHub <span className="gradient-text">Activity</span>
           </h2>
@@ -108,21 +129,31 @@ const GitHubSection = () => {
                     className="w-20 h-20 rounded-full border-2 border-primary/30"
                   />
                   <div className="flex-1 text-center sm:text-left">
-                    <h3 className="text-xl font-bold">{profile.name || profile.login}</h3>
-                    <p className="text-sm text-muted-foreground code-font mb-2">@{profile.login}</p>
+                    <h3 className="text-xl font-bold">
+                      {profile.name || profile.login}
+                    </h3>
+                    <p className="text-sm text-muted-foreground code-font mb-2">
+                      @{profile.login}
+                    </p>
                     {profile.bio && (
-                      <p className="text-sm text-muted-foreground leading-relaxed">{profile.bio}</p>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        {profile.bio}
+                      </p>
                     )}
                   </div>
                   <div className="flex items-center gap-6 text-center">
                     <div>
-                      <p className="text-2xl font-bold gradient-text">{profile.public_repos}</p>
+                      <p className="text-2xl font-bold gradient-text">
+                        {profile.public_repos}
+                      </p>
                       <p className="text-xs text-muted-foreground flex items-center gap-1">
                         <BookOpen size={12} /> Repos
                       </p>
                     </div>
                     <div>
-                      <p className="text-2xl font-bold gradient-text">{profile.followers}</p>
+                      <p className="text-2xl font-bold gradient-text">
+                        {profile.followers}
+                      </p>
                       <p className="text-xs text-muted-foreground flex items-center gap-1">
                         <Users size={12} /> Followers
                       </p>
@@ -151,7 +182,9 @@ const GitHubSection = () => {
               <div className="flex items-center gap-2 mb-4">
                 <Activity size={16} className="text-primary" />
                 <span className="text-sm font-medium">Contribution Graph</span>
-                <span className="text-xs text-muted-foreground ml-auto code-font">placeholder</span>
+                <span className="text-xs text-muted-foreground ml-auto code-font">
+                  placeholder
+                </span>
               </div>
               <div className="overflow-x-auto">
                 <div className="flex gap-[3px] min-w-[700px]">
@@ -170,7 +203,10 @@ const GitHubSection = () => {
               <div className="flex items-center justify-end gap-2 mt-3">
                 <span className="text-xs text-muted-foreground">Less</span>
                 {intensityClasses.map((cls, i) => (
-                  <div key={i} className={`w-[11px] h-[11px] rounded-sm ${cls}`} />
+                  <div
+                    key={i}
+                    className={`w-[11px] h-[11px] rounded-sm ${cls}`}
+                  />
                 ))}
                 <span className="text-xs text-muted-foreground">More</span>
               </div>

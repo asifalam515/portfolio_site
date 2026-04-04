@@ -19,8 +19,8 @@ export const projects: Project[] = [
     techStack: ["Next.js", "TypeScript", "Express", "PostgreSQL", "WebSocket"],
     architecture:
       "Eventra follows a modular full-stack architecture with a Next.js frontend and an Express.js backend using Prisma ORM with PostgreSQL.It uses REST APIs, JWT-based authentication, and a layered structure (controller → service → database) for scalability and maintainability.",
-    githubClientUrl: "https://github.com/Asibulalam515/eventra_client",
-    githubServerUrl: "https://github.com/Asibulalam515/eventra_server",
+    githubClientUrl: "https://github.com/asifalam515/eventra_client",
+    githubServerUrl: "https://github.com/asifalam515/eventra_server",
     liveUrl: "https://eventra-client.vercel.app/",
     image: "/eventra/image.png",
     screenshots: [
@@ -55,8 +55,8 @@ export const projects: Project[] = [
     ],
     architecture:
       " Frontend : React + TypeScript client that handles UI, user interaction, and communicates with APIs.Backend: Node.js + Express REST API managing authentication, business logic, and role-based access.Database: PostgreSQL managed via Prisma ORM to store users, tutors, bookings, reviews, and availability",
-    githubClientUrl: "https://github.com/Asibulalam515/mentora_client",
-    githubServerUrl: "https://github.com/Asibulalam515/Mentora_server",
+    githubClientUrl: "https://github.com/asifalam515/mentora_client",
+    githubServerUrl: "https://github.com/asifalam515/Mentora_server",
     liveUrl: "https://skill-bridge-4216.vercel.app",
     image: "/mentora/image.png",
     screenshots: [
@@ -85,8 +85,8 @@ export const projects: Project[] = [
     techStack: ["React", "TypeScript", "OpenAI API", "Socket.io"],
     architecture:
       "Monolithic backend with modular service layer. Uses WebSockets for real-time collaboration and queues for async AI processing. Content stored in PostgreSQL with S3 for media.",
-    githubClientUrl: "https://github.com/Asibulalam515/focus_flowHub_client",
-    githubServerUrl: "https://github.com/Asibul/ai-studio-server",
+    githubClientUrl: "https://github.com/asifalam515/focus_flowHub_client",
+    githubServerUrl: "https://github.com/asifalam515/ai-studio-server",
     liveUrl: "https://adjustable-table-builder.vercel.app/",
     image: "/focus-hub/image.png",
     screenshots: [
@@ -153,7 +153,7 @@ export const githubActivity: GitHubActivity = {
       stars: 128,
       forks: 34,
       language: "TypeScript",
-      url: "https://github.com/Asibul/react-component-lib",
+      url: "https://github.com/asifalam515/react-component-lib",
     },
     {
       name: "express-api-starter",
@@ -161,7 +161,7 @@ export const githubActivity: GitHubActivity = {
       stars: 89,
       forks: 21,
       language: "TypeScript",
-      url: "https://github.com/Asibul/express-api-starter",
+      url: "https://github.com/asifalam515/express-api-starter",
     },
     {
       name: "docker-dev-env",
@@ -169,7 +169,7 @@ export const githubActivity: GitHubActivity = {
       stars: 56,
       forks: 12,
       language: "Dockerfile",
-      url: "https://github.com/Asibul/docker-dev-env",
+      url: "https://github.com/asifalam515/docker-dev-env",
     },
     {
       name: "nextjs-blog",
@@ -177,9 +177,9 @@ export const githubActivity: GitHubActivity = {
       stars: 73,
       forks: 18,
       language: "TypeScript",
-      url: "https://github.com/Asibul/nextjs-blog",
+      url: "https://github.com/asifalam515/nextjs-blog",
     },
   ],
   contributions: 847,
-  profileUrl: "https://github.com/Asibul",
+  profileUrl: "https://github.com/asifalam515",
 };
