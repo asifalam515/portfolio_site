@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, Moon, Sun, X } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 const navLinks = [
   { label: "About", href: "#about" },
@@ -44,6 +45,8 @@ const mobileItemVariants = {
 };
 
 const Navbar = () => {
+  const location = useLocation();
+  const isHome = location.pathname === "/";
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [dark, setDark] = useState(true);
@@ -56,6 +59,12 @@ const Navbar = () => {
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 20);
+
+      if (!isHome) {
+        setActiveSection("");
+        return;
+      }
+
       const sections = navLinks.map((l) => l.href.slice(1));
       for (let i = sections.length - 1; i >= 0; i--) {
         const el = document.getElementById(sections[i]);
@@ -68,7 +77,11 @@ const Navbar = () => {
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [isHome]);
+
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [location.pathname]);
 
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
@@ -112,7 +125,7 @@ const Navbar = () => {
       >
         <div className="flex items-center justify-between h-16 sm:h-20 px-3 sm:px-5">
           <a
-            href="#"
+            href={isHome ? "#" : "/"}
             className="text-lg font-bold gradient-text code-font tracking-tight"
           >
             &lt;Asibul /&gt;
@@ -125,7 +138,7 @@ const Navbar = () => {
               return (
                 <motion.a
                   key={link.href}
-                  href={link.href}
+                  href={isHome ? link.href : `/${link.href}`}
                   className={`group relative px-4 py-2 text-[13px] font-medium transition-all duration-300 ${
                     isActive
                       ? "text-foreground"
@@ -212,7 +225,7 @@ const Navbar = () => {
               {navLinks.map((link, i) => (
                 <motion.a
                   key={link.href}
-                  href={link.href}
+                  href={isHome ? link.href : `/${link.href}`}
                   onClick={() => setMobileOpen(false)}
                   variants={mobileItemVariants}
                   custom={i}

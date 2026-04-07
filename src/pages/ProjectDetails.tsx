@@ -47,24 +47,19 @@ const ProjectDetails = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Top bar */}
-      <div className="nav-blur sticky top-0 z-50">
-        <div className="container-narrow flex items-center h-16">
-          <button
-            onClick={() => navigate("/")}
-            className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
-          >
-            <ArrowLeft size={16} /> Back to Home
-          </button>
-        </div>
-      </div>
-
       <div className="container-narrow section-padding">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
+          <button
+            onClick={() => navigate("/")}
+            className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors mb-8"
+          >
+            <ArrowLeft size={16} /> Back to Home
+          </button>
+
           {/* Header */}
           <div className="mb-12">
             <h1 className="text-4xl sm:text-6xl font-bold mb-4">

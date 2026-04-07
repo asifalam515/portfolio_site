@@ -96,11 +96,16 @@ const Hero = () => {
     const ctx = gsap.context(() => {
       const timeline = gsap.timeline({ defaults: { ease: "power3.out" } });
 
+      gsap.set(
+        "[data-hero-badge], [data-hero-word], [data-hero-subtitle], [data-hero-tagline], [data-hero-cta], [data-hero-float], [data-hero-scroll-indicator], [data-hero-grid], [data-hero-orb]",
+        { willChange: "transform, opacity" },
+      );
+
       timeline
         .fromTo(
           "[data-hero-badge]",
-          { autoAlpha: 0, y: 22, filter: "blur(10px)" },
-          { autoAlpha: 1, y: 0, filter: "blur(0px)", duration: 0.7 },
+          { autoAlpha: 0, y: 22 },
+          { autoAlpha: 1, y: 0, duration: 0.7, force3D: true },
         )
         .fromTo(
           "[data-hero-word]",
@@ -111,37 +116,52 @@ const Hero = () => {
             rotateX: 0,
             stagger: 0.1,
             duration: 0.85,
+            force3D: true,
           },
           "-=0.32",
         )
         .fromTo(
           "[data-hero-subtitle]",
-          { autoAlpha: 0, y: 16, filter: "blur(8px)" },
-          { autoAlpha: 1, y: 0, filter: "blur(0px)", duration: 0.7 },
+          { autoAlpha: 0, y: 16 },
+          { autoAlpha: 1, y: 0, duration: 0.7, force3D: true },
           "-=0.38",
         )
         .fromTo(
           "[data-hero-tagline]",
-          { autoAlpha: 0, y: 20, filter: "blur(8px)" },
-          { autoAlpha: 1, y: 0, filter: "blur(0px)", duration: 0.8 },
+          { autoAlpha: 0, y: 20 },
+          { autoAlpha: 1, y: 0, duration: 0.8, force3D: true },
           "-=0.48",
         )
         .fromTo(
           "[data-hero-cta]",
           { autoAlpha: 0, y: 24, scale: 0.96 },
-          { autoAlpha: 1, y: 0, scale: 1, stagger: 0.1, duration: 0.65 },
+          {
+            autoAlpha: 1,
+            y: 0,
+            scale: 1,
+            stagger: 0.1,
+            duration: 0.65,
+            force3D: true,
+          },
           "-=0.45",
         )
         .fromTo(
           "[data-hero-float]",
           { autoAlpha: 0, y: 24, scale: 0.95 },
-          { autoAlpha: 1, y: 0, scale: 1, stagger: 0.11, duration: 0.6 },
+          {
+            autoAlpha: 1,
+            y: 0,
+            scale: 1,
+            stagger: 0.11,
+            duration: 0.6,
+            force3D: true,
+          },
           "-=0.3",
         )
         .fromTo(
           "[data-hero-scroll-indicator]",
           { autoAlpha: 0, y: 10 },
-          { autoAlpha: 1, y: 0, duration: 0.5 },
+          { autoAlpha: 1, y: 0, duration: 0.5, force3D: true },
           "-=0.2",
         );
 
@@ -223,6 +243,14 @@ const Hero = () => {
         repeat: -1,
         yoyo: true,
         stagger: { each: 0.35, from: "random" },
+        force3D: true,
+      });
+
+      timeline.eventCallback("onComplete", () => {
+        gsap.set(
+          "[data-hero-badge], [data-hero-word], [data-hero-subtitle], [data-hero-tagline], [data-hero-cta], [data-hero-scroll-indicator]",
+          { clearProps: "willChange" },
+        );
       });
     }, heroRef);
 

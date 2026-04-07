@@ -36,7 +36,10 @@ const Footer = () => {
           className="flex flex-col items-center gap-8"
         >
           {/* Logo */}
-          <a href="#" className="text-2xl font-bold gradient-text code-font">
+          <a
+            href="#"
+            className="text-2xl font-bold gradient-text code-font link-underline-smooth"
+          >
             &lt;Asibul /&gt;
           </a>
 

@@ -1,27 +1,25 @@
+import { useGSAPScopedAnimation } from "@/hooks/use-gsap-scoped-animation";
 import { api } from "@/services/api";
 import type { Project } from "@/types";
 import {
+  AnimatePresence,
   motion,
-  useInView,
   useMotionValue,
+  useReducedMotion,
   useSpring,
   useTransform,
 } from "framer-motion";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ExternalLink, Monitor, Server } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const TILT = 8; // max degrees
 
-const ProjectCard = ({
-  project,
-  index,
-  inView,
-}: {
-  project: Project;
-  index: number;
-  inView: boolean;
-}) => {
+gsap.registerPlugin(ScrollTrigger);
+
+const ProjectCard = ({ project }: { project: Project }) => {
   const navigate = useNavigate();
   const cardRef = useRef<HTMLDivElement>(null);
   const mouseX = useMotionValue(0.5);
@@ -36,37 +34,55 @@ const ProjectCard = ({
     useTransform(mouseX, [0, 1], [-TILT, TILT]),
     springConfig,
   );
+  const hoverY = useSpring(0, springConfig);
+  const cardScale = useSpring(1, springConfig);
   const glowX = useSpring(useTransform(mouseX, [0, 1], [0, 100]), springConfig);
   const glowY = useSpring(useTransform(mouseY, [0, 1], [0, 100]), springConfig);
 
+  // Animation Added: pointer-driven 3D tilt/lift/glow card interaction.
   const handleMove = useCallback(
     (e: React.MouseEvent) => {
       const rect = cardRef.current?.getBoundingClientRect();
       if (!rect) return;
       mouseX.set((e.clientX - rect.left) / rect.width);
       mouseY.set((e.clientY - rect.top) / rect.height);
+      hoverY.set(-8);
+      cardScale.set(1.01);
     },
-    [mouseX, mouseY],
+    [cardScale, hoverY, mouseX, mouseY],
   );
 
   const handleLeave = useCallback(() => {
     mouseX.set(0.5);
     mouseY.set(0.5);
-  }, [mouseX, mouseY]);
+    hoverY.set(0);
+    cardScale.set(1);
+  }, [cardScale, hoverY, mouseX, mouseY]);
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.6, delay: 0.2 + index * 0.15 }}
+      layout
+      initial={false}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0, y: 20, scale: 0.98 }}
+      transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
       style={{ perspective: 1000 }}
+      data-project-card
     >
       <motion.div
         ref={cardRef}
         onMouseMove={handleMove}
         onMouseLeave={handleLeave}
         onClick={() => navigate(`/project/${project.id}`)}
-        style={{ rotateX, rotateY }}
+        whileTap={{ scale: 0.995 }}
+        style={{
+          rotateX,
+          rotateY,
+          y: hoverY,
+          scale: cardScale,
+          boxShadow:
+            "0 24px 52px -28px hsl(var(--foreground) / 0.42), 0 0 52px -26px hsl(var(--primary) / 0.32)",
+        }}
         className="glass-card relative overflow-hidden cursor-pointer group"
       >
         {/* Dynamic glow overlay */}
@@ -182,22 +198,76 @@ const ProjectCard = ({
 };
 
 const Projects = () => {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
+  const sectionRef = useRef<HTMLElement>(null);
+  const prefersReducedMotion = useReducedMotion();
   const [projects, setProjects] = useState<Project[]>([]);
 
   useEffect(() => {
     api.getProjects().then(setProjects);
   }, []);
 
+  // Animation Added: scroll-triggered heading + grid stagger entrance.
+  const setupProjectsAnimation = useCallback(
+    ({ reducedMotion }: { reducedMotion: boolean }) => {
+      if (projects.length === 0) return;
+
+      if (reducedMotion) {
+        gsap.set("[data-projects-heading], [data-project-card]", {
+          autoAlpha: 1,
+          y: 0,
+          scale: 1,
+        });
+        return;
+      }
+
+      gsap.set("[data-projects-heading]", { autoAlpha: 0, y: 24 });
+      gsap.set("[data-project-card]", { autoAlpha: 0, y: 36, scale: 0.985 });
+
+      const timeline = gsap.timeline({
+        defaults: { ease: "power3.out" },
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 70%",
+          once: true,
+        },
+      });
+
+      timeline
+        .to("[data-projects-heading]", {
+          autoAlpha: 1,
+          y: 0,
+          duration: 0.65,
+        })
+        .to(
+          "[data-project-card]",
+          {
+            autoAlpha: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.72,
+            stagger: 0.12,
+          },
+          "-=0.28",
+        );
+    },
+    [projects.length],
+  );
+
+  useGSAPScopedAnimation({
+    scopeRef: sectionRef,
+    setup: setupProjectsAnimation,
+    deps: [projects.length],
+    enabled: projects.length > 0,
+    reducedMotion: prefersReducedMotion,
+  });
+
   return (
-    <section id="projects" className="section-padding" ref={ref}>
+    <section id="projects" className="section-padding" ref={sectionRef}>
       <div className="container-narrow">
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7 }}
+          initial={false}
           className="text-center mb-16"
+          data-projects-heading
         >
           <p className="text-sm font-medium text-primary code-font mb-3">
             // projects
@@ -207,16 +277,13 @@ const Projects = () => {
           </h2>
         </motion.div>
 
-        <div className="space-y-10">
-          {projects.map((project, i) => (
-            <ProjectCard
-              key={project.id}
-              project={project}
-              index={i}
-              inView={inView}
-            />
-          ))}
-        </div>
+        <motion.div layout className="space-y-10">
+          <AnimatePresence mode="popLayout">
+            {projects.map((project) => (
+              <ProjectCard key={project.id} project={project} />
+            ))}
+          </AnimatePresence>
+        </motion.div>
       </div>
     </section>
   );

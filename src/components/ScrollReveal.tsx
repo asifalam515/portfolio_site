@@ -1,5 +1,7 @@
-import { motion, useInView } from "framer-motion";
-import { useRef, ReactNode } from "react";
+import { useGSAPScopedAnimation } from "@/hooks/use-gsap-scoped-animation";
+import { useReducedMotion } from "framer-motion";
+import { gsap } from "gsap";
+import { ReactNode, useCallback, useRef } from "react";
 
 interface Props {
   children: ReactNode;
@@ -8,19 +10,56 @@ interface Props {
 }
 
 const ScrollReveal = ({ children, className = "", delay = 0 }: Props) => {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "0px 0px -60px 0px" });
+  const ref = useRef<HTMLDivElement>(null);
+  const prefersReducedMotion = useReducedMotion();
+
+  // Animation Added: section-level reveal on scroll.
+  const setupReveal = useCallback(
+    ({ reducedMotion }: { reducedMotion: boolean }) => {
+      if (!ref.current) return;
+
+      if (reducedMotion) {
+        gsap.set(ref.current, { autoAlpha: 1, y: 0 });
+        return;
+      }
+
+      gsap.set(ref.current, { willChange: "transform, opacity" });
+
+      gsap.fromTo(
+        ref.current,
+        { autoAlpha: 0, y: 40 },
+        {
+          autoAlpha: 1,
+          y: 0,
+          duration: 0.78,
+          delay,
+          ease: "power3.out",
+          force3D: true,
+          scrollTrigger: {
+            trigger: ref.current,
+            start: "top 84%",
+            once: true,
+          },
+          onComplete: () => {
+            gsap.set(ref.current, { clearProps: "willChange" });
+          },
+        },
+      );
+    },
+    [delay],
+  );
+
+  useGSAPScopedAnimation({
+    scopeRef: ref,
+    setup: setupReveal,
+    deps: [delay],
+    reducedMotion: prefersReducedMotion,
+  });
 
   return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 40, scale: 0.97 }}
-      animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
-      transition={{ duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }}
-      className={className}
-    >
+    <div ref={ref} className={className}>
       {children}
-    </motion.div>
+    </div>
   );
 };
 
