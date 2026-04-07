@@ -1,4 +1,4 @@
-# Pixel Perfect Portfolio
+# Asibul Alam's Portfolio
 
 Modern personal portfolio website built with React, TypeScript, and Vite.
 
