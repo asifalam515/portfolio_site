@@ -5,7 +5,7 @@ import { useRef } from "react";
 const links = [
   { href: "https://github.com/asifalam515", icon: Github, label: "GitHub" },
   {
-    href: "https://www.linkedin.com/in/asibul-alam-b90612197/",
+    href: "https://www.linkedin.com/in/asibul-alam-asif/",
     icon: Linkedin,
     label: "LinkedIn",
   },

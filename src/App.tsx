@@ -7,6 +7,7 @@ import { ReactNode, useEffect } from "react";
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import MouseSpotlight from "./components/MouseSpotlight";
 import Navbar from "./components/Navbar";
+import StickyContactRail from "./components/StickyContactRail";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import ProjectDetails from "./pages/ProjectDetails";
@@ -78,6 +79,7 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Navbar />
+        <StickyContactRail />
         <AnimatedRoutes />
       </BrowserRouter>
     </TooltipProvider>

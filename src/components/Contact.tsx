@@ -249,7 +249,7 @@ const Contact = () => {
                 </span>
               </a>
               <a
-                href="https://www.linkedin.com/in/asibul-alam-b90612197/"
+                href="https://www.linkedin.com/in/asibul-alam-asif/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors"
@@ -258,7 +258,7 @@ const Contact = () => {
                   <Linkedin size={18} className="text-primary" />
                 </div>
                 <span className="text-sm link-underline-smooth">
-                  linkedin.com/in/asibul-alam-b90612197
+                  linkedin.com/in/asibul-alam-asif
                 </span>
               </a>
             </div>

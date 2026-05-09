@@ -158,7 +158,7 @@ const Navbar = () => {
             })}
             <div className="ml-3 w-px h-5 bg-border" />
             <a
-              href="https://drive.google.com/file/d/1mesJCLX2pOP8daX7j06gJ3PKZ8qDZz74/view?usp=sharing"
+              href="https://drive.google.com/file/d/1DHhd_cRXAHcPQ4UPxOvcRpdAeBY4PR3Z/view?usp=sharing"
               target="_blank"
               rel="noopener noreferrer"
               className="ml-3 px-5 py-2 text-xs font-medium rounded-lg btn-primary-gradient !py-2 !px-5"

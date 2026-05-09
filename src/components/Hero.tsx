@@ -365,7 +365,7 @@ const Hero = () => {
             Contact Me
           </MagneticLink>
           <MagneticLink
-            href="https://drive.google.com/file/d/1mesJCLX2pOP8daX7j06gJ3PKZ8qDZz74/view?usp=sharing"
+            href="https://drive.google.com/file/d/1DHhd_cRXAHcPQ4UPxOvcRpdAeBY4PR3Z/view?usp=sharing"
             target="_blank"
             rel="noopener noreferrer"
             className="btn-outline-glow flex items-center gap-2.5"
